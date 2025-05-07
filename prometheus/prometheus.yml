@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: 'node_rest_api_application'
+    static_configs:
+      - targets: ['rest-api-application:9100']

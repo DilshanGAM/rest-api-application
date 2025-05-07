@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import productRouter from "./routers/productRouter.js";
 import { restResponseTimeHistogram, startMetricsServer } from "./utils/metrics.js";
 import responseTime from "response-time";
+import cors from "cors";
 
 dotenv.config()
 mongoose.connect(process.env.MONGO_URI).then(
@@ -15,6 +16,9 @@ mongoose.connect(process.env.MONGO_URI).then(
 
 
 const app = express()
+
+app.use(cors())
+
 
 app.use(responseTime(
     (req,res,time)=>{

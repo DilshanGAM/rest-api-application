@@ -1,5 +1,6 @@
 import express from "express";
 import client from "prom-client"
+import cors from 'cors'
 
 const app = express()
 
@@ -18,7 +19,11 @@ export const databaseResponseTimeHistogram = new client.Histogram({
 export function startMetricsServer(){
     const collectDefaultMetrics = client.collectDefaultMetrics
     collectDefaultMetrics()
-    
+    app.use(cors())
+    app.get("/", (req,res)=>{
+        res.send("hi")
+    })
+
     app.get("/metrics",async (req,res)=>{
         res.setHeader("Content-Type",client.register.contentType)
         return res.send(await client.register.metrics())
